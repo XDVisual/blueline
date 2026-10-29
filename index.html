@@ -1369,6 +1369,8 @@ function loadThree(){return new Promise((res,rej)=>{if(window.THREE)return res()
 async function setView(three){
   if(three===is3d)return;
   if(three){
+    // The first switch downloads the 3D engine, which can take a few seconds on a phone connection.
+    if(!window.THREE)toast('Loading the 3D view…');
     try{await loadThree();}catch(e){return toast("The 3D engine couldn't load. Check the internet connection and try again.");}
     chain=null;pendingDim=null;roomDrag=null;drag=null;is3d=true;stage.classList.add('is3d');$('#view3d').hidden=false;$('#v3bar').hidden=false;
     init3d();build3d();reset3d();
